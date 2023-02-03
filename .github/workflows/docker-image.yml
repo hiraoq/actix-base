@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'api/**'
+      - '.github/workflows/docker-image.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'api/**'
+      - '.github/workflows/docker-image.yml'
+
+defaults:
+  run:
+    working-directory: api
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag aslamplr:actix-react-starter-template
